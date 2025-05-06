@@ -20,18 +20,18 @@ jobs:
         with:
           node-version: '22.x'
 
-      - name: List directory contents
-        run: ls -R # This will print all files and directories to help us see where the code is located
+      - name: List directory contents in the api folder
+        run: ls -R ./api # Ensure we can see the api folder contents
 
-      - name: Install dependencies and build
-        # Update the working directory path based on the output of the ls -R step
+      - name: Install dependencies and build in api folder
+        working-directory: ./api # Set the working directory to the api folder
         run: |
           npm install
           npm run build --if-present
           npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./api/* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -71,4 +71,4 @@ jobs:
         with:
           app-name: 'simicodepushserver'
           slot-name: 'Production'
-          package: .
+          package: ./api # Deploy the content from the api folder
