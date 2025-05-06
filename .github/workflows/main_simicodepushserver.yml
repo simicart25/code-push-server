@@ -21,10 +21,10 @@ jobs:
           node-version: '22.x'
 
       - name: List directory contents
-        run: ls -R
+        run: ls -R # This will print all files and directories to help us see where the code is located
 
       - name: Install dependencies and build
-        working-directory: ./script
+        # Update the working directory path based on the output of the ls -R step
         run: |
           npm install
           npm run build --if-present
